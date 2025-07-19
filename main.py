@@ -1,5 +1,5 @@
 # This a python password generator
-# Import randon 
+import random
 import string
 
 def generate_password(min_length,numbers=True,special_characters=True):
@@ -20,7 +20,7 @@ def generate_password(min_length,numbers=True,special_characters=True):
         has_special = False
 
     while not meets_criteria or len(pwd) < min_length :
-        new_char = randon.choice(characters)
+        new_char = random.choice(characters)
         pwd += new_char
 
         if new_char in digits:
@@ -28,8 +28,19 @@ def generate_password(min_length,numbers=True,special_characters=True):
         elif new_char in special:
             has_special = True
 
-        meets_criteria = True
+        meets_criteria = True 
+        if numbers:
+            meets_criteria = has_numbers
+        if special_characters :
+            meets_criteria = meets_criteria and has_special
+        
 
+    return pwd 
+min_length = int(input("Enter the minimum Length :"))
+has_number = input("Do you want to have numbers (y/n)").lower() == "y"
+has_special = input("Do you want to have special (y/n)").lower() == "y"
+pwd = generate_password(min_length,has_number,has_special)
+print("The generate password is :",pwd)
 
 
 generate_password(10)
